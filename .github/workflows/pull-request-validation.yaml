@@ -45,11 +45,11 @@ jobs:
           node-version: 20
           cache: "pnpm"
 
-      - name: 📎 Install dependencies
-        run: pnpm install
-
       - name: ⚙️ Prepare Wrangler config
         run: cp -f wrangler.jsonc.example wrangler.jsonc
+
+      - name: 📎 Install dependencies
+        run: pnpm install
 
       - name: 🔧 Generate Types
         run: pnpm typegen
