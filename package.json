@@ -83,7 +83,7 @@
 		"vite": "7.2.7",
 		"vite-plugin-devtools-json": "^1.0.0",
 		"vite-tsconfig-paths": "5.1.4",
-		"wrangler": "4.59.1"
+		"wrangler": "4.60.0"
 	},
 	"pnpm": {
 		"onlyBuiltDependencies": [
