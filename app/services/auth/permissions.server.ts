@@ -5,16 +5,16 @@ export type PermissionPayload = Record<string, string[]>;
 /**
  * Check if a user has a permission.
  * @param userId - The ID of the user to check permissions for.
- * @param permission - The permission to check.
+ * @param permissions - Resource → actions map (matches admin plugin access control).
  * @param message - The message to display when the user is not authorized.
  */
 export async function requirePermission(
 	userId: string,
-	permission: PermissionPayload,
+	permissions: PermissionPayload,
 	message?: string,
 ) {
 	const result = await auth.api.userHasPermission({
-		body: { userId, permission },
+		body: { userId, permissions },
 	});
 
 	if (!result.success) {
@@ -30,14 +30,14 @@ export async function requirePermission(
  * Check if a user has a permission.
  *
  * @param userId - The ID of the user to check permissions for.
- * @param permission - The permission to check.
+ * @param permissions - Resource → actions map (matches admin plugin access control).
  */
 export async function checkPermission(
 	userId: string,
-	permission: PermissionPayload,
+	permissions: PermissionPayload,
 ) {
 	const result = await auth.api.userHasPermission({
-		body: { userId, permission },
+		body: { userId, permissions },
 	});
 
 	return result.success;

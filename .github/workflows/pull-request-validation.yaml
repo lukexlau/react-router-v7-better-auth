@@ -51,8 +51,6 @@ jobs:
       - name: 📎 Install dependencies
         run: pnpm install
 
-      - name: 🔧 Generate Types
-        run: pnpm typegen
-
-      - name: 📝 Run type check
+      # typecheck runs typegen (cf-typegen + react-router typegen) then tsc — see package.json
+      - name: 📝 Typegen + typecheck
         run: pnpm typecheck

@@ -63,4 +63,4 @@ function CropperCropArea({
 	);
 }
 
-export { Cropper, CropperDescription, CropperImage, CropperCropArea };
+export { Cropper, CropperCropArea, CropperDescription, CropperImage };
