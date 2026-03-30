@@ -53,7 +53,7 @@
 		"clsx": "^2.1.1",
 		"cookie": "^1.1.1",
 		"drizzle-orm": "~0.45.1",
-		"isbot": "^5.1.36",
+		"isbot": "^5.1.37",
 		"lucide-react": "^0.577.0",
 		"react": "^19.2.4",
 		"react-dom": "^19.2.4",

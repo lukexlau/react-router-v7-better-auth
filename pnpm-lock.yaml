@@ -84,8 +84,8 @@ importers:
         specifier: ~0.45.1
         version: 0.45.1(@libsql/client@0.17.2)(kysely@0.28.13)
       isbot:
-        specifier: ^5.1.36
-        version: 5.1.36
+        specifier: ^5.1.37
+        version: 5.1.37
       lucide-react:
         specifier: ^0.577.0
         version: 0.577.0(react@19.2.4)
@@ -2845,8 +2845,8 @@ packages:
     resolution: {integrity: sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==}
     engines: {node: '>=12'}
 
-  isbot@5.1.36:
-    resolution: {integrity: sha512-C/ZtXyJqDPZ7G7JPr06ApWyYoHjYexQbS6hPYD4WYCzpv2Qes6Z+CCEfTX4Owzf+1EJ933PoI2p+B9v7wpGZBQ==}
+  isbot@5.1.37:
+    resolution: {integrity: sha512-5bcicX81xf6NlTEV8rWdg7Pk01LFizDetuYGHx6d/f6y3lR2/oo8IfxjzJqn1UdDEyCcwT9e7NRloj8DwCYujQ==}
     engines: {node: '>=18'}
 
   jiti@2.6.1:
@@ -5158,7 +5158,7 @@ snapshots:
       dedent: 1.7.2
       es-module-lexer: 1.7.0
       exit-hook: 2.2.1
-      isbot: 5.1.36
+      isbot: 5.1.37
       jsesc: 3.0.2
       lodash: 4.17.23
       p-map: 7.0.4
@@ -5845,7 +5845,7 @@ snapshots:
 
   is-plain-obj@4.1.0: {}
 
-  isbot@5.1.36: {}
+  isbot@5.1.37: {}
 
   jiti@2.6.1: {}
 
