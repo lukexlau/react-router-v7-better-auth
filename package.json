@@ -54,7 +54,7 @@
 		"cookie": "^1.1.1",
 		"drizzle-orm": "~0.45.1",
 		"isbot": "^5.1.36",
-		"lucide-react": "^0.577.0",
+		"lucide-react": "^1.7.0",
 		"react": "^19.2.4",
 		"react-dom": "^19.2.4",
 		"react-router": "^7.13.1",
