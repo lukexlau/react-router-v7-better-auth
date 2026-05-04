@@ -32,12 +32,14 @@ export function UserNav() {
 			<DropdownMenuTrigger className="cursor-pointer rounded-full">
 				<UserAvatar image={avatarUrl} name={user.name} size={32} />
 			</DropdownMenuTrigger>
-			<DropdownMenuContent align="end" forceMount>
+			<DropdownMenuContent align="end" forceMount className="min-w-40">
 				<DropdownMenuLabel className="p-0 font-normal">
 					<div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
 						<UserAvatar image={avatarUrl} name={user.name} size={32} />
 						<div className="grid flex-1 text-left text-sm leading-tight">
-							<span className="truncate font-semibold">{user.name}</span>
+							<span className="truncate font-semibold text-primary">
+								{user.name}
+							</span>
 							<span className="truncate text-muted-foreground text-xs">
 								{user.email}
 							</span>

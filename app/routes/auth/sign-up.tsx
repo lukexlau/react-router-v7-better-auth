@@ -1,13 +1,12 @@
-import { useForm } from "@conform-to/react/future";
 import { getZodConstraint } from "@conform-to/zod/v4";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
-
 import { AuthLayout } from "~/components/auth/auth-layout";
 import { Form, LoadingButton, PasswordField } from "~/components/forms";
 import { Field, FieldError, FieldLabel } from "~/components/ui/field";
 import { Input } from "~/components/ui/input";
+import { useForm } from "~/lib/conform";
 import { getPageTitle } from "~/lib/utils";
 import { signUpSchema } from "~/lib/validations/auth";
 import { authClient } from "~/services/auth/client";

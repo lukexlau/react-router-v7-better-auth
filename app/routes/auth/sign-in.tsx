@@ -1,4 +1,3 @@
-import { useForm } from "@conform-to/react/future";
 import { getZodConstraint } from "@conform-to/zod/v4";
 import { useEffect, useState } from "react";
 import { href, Link, useSearchParams } from "react-router";
@@ -10,6 +9,7 @@ import { GithubIcon, GoogleIcon } from "~/components/icons";
 import { Button } from "~/components/ui/button";
 import { Field, FieldError, FieldLabel } from "~/components/ui/field";
 import { Input } from "~/components/ui/input";
+import { useForm } from "~/lib/conform";
 import { getPageTitle } from "~/lib/utils";
 import { signInSchema } from "~/lib/validations/auth";
 import { authClient } from "~/services/auth/client";

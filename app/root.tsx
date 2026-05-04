@@ -1,4 +1,3 @@
-import { FormOptionsProvider } from "@conform-to/react/future";
 import {
 	data,
 	Links,
@@ -12,6 +11,7 @@ import { Toaster } from "sonner";
 import type { Route } from "./+types/root";
 import { GeneralErrorBoundary } from "./components/error-boundary";
 import { ProgressBar } from "./components/progress-bar";
+import { TooltipProvider } from "./components/ui/tooltip";
 import { useNonce } from "./hooks/use-nonce";
 import { useToast } from "./hooks/use-toast";
 import {
@@ -19,7 +19,6 @@ import {
 	getHints,
 	useOptionalTheme,
 } from "./lib/client-hints";
-import { defineCustomMetadata } from "./lib/define-custom-metadata";
 import { combineHeaders, getPageTitle } from "./lib/utils";
 import {
 	authMiddleware,
@@ -88,8 +87,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<ClientHintCheck nonce={nonce} />
 			</head>
 			<body>
-				<ProgressBar />
-				{children}
+				<TooltipProvider>
+					<ProgressBar />
+					{children}
+				</TooltipProvider>
 				<ScrollRestoration nonce={nonce} />
 				<Scripts nonce={nonce} />
 				<Toaster position="top-center" theme={theme} />
@@ -102,13 +103,9 @@ export default function App({ loaderData }: Route.ComponentProps) {
 	const nonce = useNonce();
 	useToast(loaderData.toast);
 
+	// Form defaults + custom field props: `app/conform.ts` (`configureForms`)
 	return (
-		<FormOptionsProvider
-			// TODO: onBlur can cause dialog focusing issues. (https://github.com/edmundhung/conform/issues/783)
-			// shouldValidate="onBlur"
-			shouldRevalidate="onInput"
-			defineCustomMetadata={defineCustomMetadata}
-		>
+		<>
 			<Outlet />
 			<script
 				nonce={nonce}
@@ -117,7 +114,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
 					__html: `window.ENV = ${JSON.stringify(loaderData.requestInfo.clientEnv)}`,
 				}}
 			/>
-		</FormOptionsProvider>
+		</>
 	);
 }
 

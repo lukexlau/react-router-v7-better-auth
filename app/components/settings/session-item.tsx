@@ -30,8 +30,8 @@ export function SessionItem({
 						{browser}
 					</span>
 					{isCurrentSession && (
-						<span className="flex h-3 shrink-0 items-center gap-1 rounded-md border border-primary px-0.5 text-primary text-xs sm:h-auto sm:px-1.5">
-							<span className="size-1.5 rounded-full bg-primary" />
+						<span className="flex h-3 shrink-0 items-center gap-1 rounded-md border border-emerald-600 px-0.5 text-emerald-600 text-xs sm:h-auto sm:px-1.5 dark:border-emerald-500 dark:text-emerald-400">
+							<span className="size-1.5 rounded-full bg-emerald-600 dark:bg-emerald-500" />
 							<span className="hidden sm:inline">Current device</span>
 						</span>
 					)}

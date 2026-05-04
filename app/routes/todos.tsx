@@ -1,12 +1,11 @@
-import { parseSubmission, report, useForm } from "@conform-to/react/future";
 import { getZodConstraint } from "@conform-to/zod/v4/future";
 import { and, eq, sql } from "drizzle-orm";
 import { data, useNavigation } from "react-router";
-
 import { Form, LoadingButton } from "~/components/forms";
 import { TodoItem } from "~/components/todos/todo-item";
 import { Input } from "~/components/ui/input";
 import { todos } from "~/drizzle/schema";
+import { parseSubmission, report, useForm } from "~/lib/conform";
 import { getPageTitle } from "~/lib/utils";
 import { todoSchema } from "~/lib/validations/todo";
 import { requiredAuthContext } from "~/middlewares/auth";
@@ -97,7 +96,7 @@ export default function TodosRoute({
 			<h1 className="font-bold text-xl">Todo List</h1>
 
 			<Form method="POST" context={form.context} {...form.props}>
-				<div className="flex gap-1">
+				<div className="flex gap-2">
 					<Input
 						placeholder="Add a todo"
 						{...fields.title.inputProps}

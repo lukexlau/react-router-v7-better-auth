@@ -4,7 +4,6 @@ import { Suspense } from "react";
 import { Await, data, href } from "react-router";
 import {
 	Card,
-	CardAction,
 	CardDescription,
 	CardHeader,
 	CardTitle,
@@ -68,22 +67,22 @@ export default function AdminIndexRoute({
 	return (
 		<div className="space-y-4">
 			<h1 className="font-semibold text-xl">👋 Hi, {user.name}</h1>
-			<div className="grid grid-cols-1 gap-4 *:data-[slot=card]:shadow-xs sm:grid-cols-2 xl:grid-cols-4">
+			<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
 				<Suspense fallback={<CardSkeleton />}>
 					<Await
 						resolve={usersCountPromise}
 						errorElement={<div>Failed to load users count.</div>}
 					>
 						{(usersCount) => (
-							<Card className="@container/card dark:bg-accent/30">
-								<CardHeader>
-									<CardDescription>Users</CardDescription>
-									<CardTitle className="font-semibold @[250px]/card:text-3xl text-2xl tabular-nums">
-										{usersCount}
-									</CardTitle>
-									<CardAction>
-										<UsersIcon className="size-4 text-muted-foreground" />
-									</CardAction>
+							<Card className="@container/card shadow-xs dark:bg-accent/30">
+								<CardHeader className="flex flex-row items-start justify-between gap-4 space-y-0 p-6">
+									<div className="flex flex-col space-y-1.5">
+										<CardDescription>Users</CardDescription>
+										<CardTitle className="font-semibold @[250px]/card:text-3xl text-2xl tabular-nums">
+											{usersCount}
+										</CardTitle>
+									</div>
+									<UsersIcon className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
 								</CardHeader>
 							</Card>
 						)}
@@ -96,15 +95,15 @@ export default function AdminIndexRoute({
 						errorElement={<div>Failed to load total content.</div>}
 					>
 						{(totalContent) => (
-							<Card className="@container/card dark:bg-accent/30">
-								<CardHeader>
-									<CardDescription>Total Content</CardDescription>
-									<CardTitle className="font-semibold @[250px]/card:text-3xl text-2xl tabular-nums">
-										{totalContent}
-									</CardTitle>
-									<CardAction>
-										<FileStackIcon className="size-4 text-muted-foreground" />
-									</CardAction>
+							<Card className="@container/card shadow-xs dark:bg-accent/30">
+								<CardHeader className="flex flex-row items-start justify-between gap-4 space-y-0 p-6">
+									<div className="flex flex-col space-y-1.5">
+										<CardDescription>Total Content</CardDescription>
+										<CardTitle className="font-semibold @[250px]/card:text-3xl text-2xl tabular-nums">
+											{totalContent}
+										</CardTitle>
+									</div>
+									<FileStackIcon className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
 								</CardHeader>
 							</Card>
 						)}
@@ -117,15 +116,15 @@ export default function AdminIndexRoute({
 						errorElement={<div>Failed to load categories count.</div>}
 					>
 						{(categoriesCount) => (
-							<Card className="@container/card dark:bg-accent/30">
-								<CardHeader>
-									<CardDescription>Categories</CardDescription>
-									<CardTitle className="font-semibold @[250px]/card:text-3xl text-2xl tabular-nums">
-										{categoriesCount}
-									</CardTitle>
-									<CardAction>
-										<FoldersIcon className="size-4 text-muted-foreground" />
-									</CardAction>
+							<Card className="@container/card shadow-xs dark:bg-accent/30">
+								<CardHeader className="flex flex-row items-start justify-between gap-4 space-y-0 p-6">
+									<div className="flex flex-col space-y-1.5">
+										<CardDescription>Categories</CardDescription>
+										<CardTitle className="font-semibold @[250px]/card:text-3xl text-2xl tabular-nums">
+											{categoriesCount}
+										</CardTitle>
+									</div>
+									<FoldersIcon className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
 								</CardHeader>
 							</Card>
 						)}
@@ -138,15 +137,15 @@ export default function AdminIndexRoute({
 						errorElement={<div>Failed to load tags count.</div>}
 					>
 						{(tagsCount) => (
-							<Card className="@container/card dark:bg-accent/30">
-								<CardHeader>
-									<CardDescription>Tags</CardDescription>
-									<CardTitle className="font-semibold @[250px]/card:text-3xl text-2xl tabular-nums">
-										{tagsCount}
-									</CardTitle>
-									<CardAction>
-										<TagsIcon className="size-4 text-muted-foreground" />
-									</CardAction>
+							<Card className="@container/card shadow-xs dark:bg-accent/30">
+								<CardHeader className="flex flex-row items-start justify-between gap-4 space-y-0 p-6">
+									<div className="flex flex-col space-y-1.5">
+										<CardDescription>Tags</CardDescription>
+										<CardTitle className="font-semibold @[250px]/card:text-3xl text-2xl tabular-nums">
+											{tagsCount}
+										</CardTitle>
+									</div>
+									<TagsIcon className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
 								</CardHeader>
 							</Card>
 						)}
@@ -162,15 +161,18 @@ export default function AdminIndexRoute({
 
 function CardSkeleton() {
 	return (
-		<Card className="@container/card">
-			<CardHeader>
-				<CardDescription>
-					<Skeleton className="h-4 w-8/12" />
-				</CardDescription>
-				<CardTitle className="flex flex-col gap-1.5">
-					<Skeleton className="h-4 w-5/12" />
-					<Skeleton className="h-4 w-9/12" />
-				</CardTitle>
+		<Card className="@container/card shadow-xs">
+			<CardHeader className="flex flex-row items-start justify-between gap-4 space-y-0 p-6">
+				<div className="flex flex-1 flex-col space-y-1.5">
+					<CardDescription>
+						<Skeleton className="h-4 w-8/12" />
+					</CardDescription>
+					<CardTitle className="flex flex-col gap-1.5">
+						<Skeleton className="h-4 w-5/12" />
+						<Skeleton className="h-4 w-9/12" />
+					</CardTitle>
+				</div>
+				<Skeleton className="mt-0.5 size-4 shrink-0 rounded-none" />
 			</CardHeader>
 		</Card>
 	);

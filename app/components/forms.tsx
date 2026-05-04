@@ -1,9 +1,3 @@
-import {
-	type FormContext,
-	FormProvider,
-	useField,
-	useFormMetadata,
-} from "@conform-to/react/future";
 import type { VariantProps } from "class-variance-authority";
 import { CircleAlertIcon, EyeIcon, EyeOffIcon } from "lucide-react";
 import { type ComponentProps, useState } from "react";
@@ -16,6 +10,12 @@ import {
 	InputGroupButton,
 	InputGroupInput,
 } from "~/components/ui/input-group";
+import {
+	type FormContext,
+	FormProvider,
+	useField,
+	useFormMetadata,
+} from "~/lib/conform";
 import { cn } from "~/lib/utils";
 import { Button, type buttonVariants } from "./ui/button";
 import { Spinner } from "./ui/spinner";

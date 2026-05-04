@@ -1,4 +1,3 @@
-import type { Route } from ".react-router/types/app/routes/admin/users/+types";
 import {
 	type ColumnFiltersState,
 	getCoreRowModel,
@@ -11,9 +10,11 @@ import {
 	useReactTable,
 	type VisibilityState,
 } from "@tanstack/react-table";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { DataTable } from "~/components/admin/data-table";
 import { DataTablePagination } from "~/components/admin/data-table-pagination";
+/** Route types: colocated +types do not exist here; use RR generated output under `.react-router`. */
+import type { Route } from "../../../../.react-router/types/app/routes/admin/users/+types";
 import { getUsersTableColumns } from "./users-table-columns";
 import { UsersTableToolbar } from "./users-table-toolbar";
 
@@ -41,7 +42,8 @@ export function UsersTable({ data }: { data: UsersData }) {
 	const handleDeleteRows = () => {
 		const selectedRows = table.getSelectedRowModel().rows;
 		const updatedData = tableData.filter(
-			(item) => !selectedRows.some((row) => row.original.id === item.id),
+			(item: UserItem) =>
+				!selectedRows.some((row) => row.original.id === item.id),
 		);
 		setTableData(updatedData);
 		table.resetRowSelection();
@@ -60,6 +62,9 @@ export function UsersTable({ data }: { data: UsersData }) {
 		onColumnVisibilityChange: setColumnVisibility,
 		getFilteredRowModel: getFilteredRowModel(),
 		getFacetedUniqueValues: getFacetedUniqueValues(),
+		// TanStack queues page resets in a microtask (see table-core `_queue`); that fires
+		// `onPaginationChange` before React 19 finishes mounting and triggers console warnings.
+		autoResetPageIndex: false,
 		state: {
 			sorting,
 			pagination,
@@ -67,6 +72,26 @@ export function UsersTable({ data }: { data: UsersData }) {
 			columnVisibility,
 		},
 	});
+
+	const pageCount = table.getPageCount();
+
+	// Keep page index valid when filters, sorting, or data shrink (replaces auto page reset).
+	useEffect(() => {
+		setPagination((prev) => {
+			if (pageCount < 1) {
+				return prev;
+			}
+			const lastIndex = pageCount - 1;
+			if (prev.pageIndex > lastIndex) {
+				return { ...prev, pageIndex: Math.max(0, lastIndex) };
+			}
+			return prev;
+		});
+	}, [pageCount]);
+
+	useEffect(() => {
+		setTableData(data);
+	}, [data]);
 
 	return (
 		<div className="space-y-4">

@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useFetcher } from "react-router";
 import { toast } from "sonner";
 import { Button } from "~/components/ui/button";
+import { CardFooter } from "~/components/ui/card";
 import {
 	Cropper,
 	CropperCropArea,
@@ -13,7 +14,6 @@ import {
 	Dialog,
 	DialogContent,
 	DialogDescription,
-	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 } from "~/components/ui/dialog";
@@ -329,7 +329,8 @@ export default function AvatarCropper({
 						/>
 					</div>
 
-					<DialogFooter className="border-t px-4 py-6">
+					{/* Match CardFooter: full-bleed bar with border-t, no DialogFooter -mx margins (parent uses p-0). */}
+					<CardFooter className="justify-end gap-2">
 						<Button
 							type="button"
 							variant="outline"
@@ -347,7 +348,7 @@ export default function AvatarCropper({
 						>
 							Set avatar
 						</Button>
-					</DialogFooter>
+					</CardFooter>
 				</DialogContent>
 			</Dialog>
 		</div>

@@ -1,10 +1,8 @@
-import { useForm } from "@conform-to/react/future";
 import { getZodConstraint } from "@conform-to/zod/v4";
 import { MailIcon } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
 import { toast } from "sonner";
-
 import { AuthLayout } from "~/components/auth/auth-layout";
 import { Form, LoadingButton } from "~/components/forms";
 import { Field, FieldError } from "~/components/ui/field";
@@ -12,7 +10,9 @@ import {
 	InputGroup,
 	InputGroupAddon,
 	InputGroupInput,
+	InputGroupText,
 } from "~/components/ui/input-group";
+import { useForm } from "~/lib/conform";
 import { getPageTitle } from "~/lib/utils";
 import { forgetPasswordSchema } from "~/lib/validations/auth";
 import { authClient } from "~/services/auth/client";
@@ -66,7 +66,9 @@ export default function ForgetPasswordRoute() {
 							{...fields.email.inputProps}
 						/>
 						<InputGroupAddon>
-							<MailIcon />
+							<InputGroupText>
+								<MailIcon />
+							</InputGroupText>
 						</InputGroupAddon>
 					</InputGroup>
 					<FieldError

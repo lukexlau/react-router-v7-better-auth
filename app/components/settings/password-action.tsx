@@ -1,4 +1,3 @@
-import { useForm } from "@conform-to/react/future";
 import { getZodConstraint } from "@conform-to/zod/v4";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -14,6 +13,7 @@ import {
 	DialogTrigger,
 } from "~/components/ui/dialog";
 import { Field, FieldError, FieldLabel } from "~/components/ui/field";
+import { useForm } from "~/lib/conform";
 import { changePasswordSchema } from "~/lib/validations/auth";
 import { authClient } from "~/services/auth/client";
 import { Form, LoadingButton, PasswordField } from "../forms";

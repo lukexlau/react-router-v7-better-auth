@@ -1,9 +1,7 @@
-import { useForm } from "@conform-to/react/future";
 import { getZodConstraint } from "@conform-to/zod/v4";
 import { useState } from "react";
 import { data, href, Link, redirect, useNavigate } from "react-router";
 import { toast } from "sonner";
-
 import { AuthLayout } from "~/components/auth/auth-layout";
 import {
 	Form as CustomForm,
@@ -11,6 +9,7 @@ import {
 	PasswordField,
 } from "~/components/forms";
 import { Field, FieldError, FieldLabel } from "~/components/ui/field";
+import { useForm } from "~/lib/conform";
 import { getPageTitle } from "~/lib/utils";
 import { resetPasswordSchema } from "~/lib/validations/auth";
 import { authClient } from "~/services/auth/client";

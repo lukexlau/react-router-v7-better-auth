@@ -18,7 +18,7 @@
 		"module": "ESNext",
 		"moduleResolution": "Bundler",
 		"target": "ES2022",
-		"baseUrl": ".",
+		// baseUrl omitted: deprecated in TS 6+ (TS5101); paths are rooted at this tsconfig
 		"paths": {
 			"~/*": ["./app/*"],
 			"~/drizzle/*": ["./drizzle/*"]

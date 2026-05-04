@@ -1,9 +1,9 @@
-import { parseSubmission, report } from "@conform-to/react/future";
 import { DeleteAccount, SignOut } from "~/components/settings/account-action";
 import { SettingRow } from "~/components/settings/setting-row";
 import { SettingsLayout } from "~/components/settings/settings-layout";
 import AvatarCropper from "~/components/user/avatar-cropper";
 import { useAuthUser } from "~/hooks/use-auth-user";
+import { parseSubmission, report } from "~/lib/conform";
 import { getAvatarUrl, getPageTitle } from "~/lib/utils";
 import { accountSchema } from "~/lib/validations/settings";
 import { requiredAuthContext } from "~/middlewares/auth";

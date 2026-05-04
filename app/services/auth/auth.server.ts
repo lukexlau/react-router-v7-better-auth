@@ -1,6 +1,6 @@
 import { env } from "cloudflare:workers";
-import { type BetterAuthOptions, betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { type BetterAuthOptions, betterAuth } from "better-auth/minimal";
 import {
 	admin as adminPlugin,
 	customSession as customSessionPlugin,
@@ -56,7 +56,7 @@ const options = {
 				console.log("Send email to verify email address");
 				console.log(user, url, token);
 			} else {
-				// Send email to user ...
+				// Send email to user ... (Use Resend or Cloudflare Send Email)
 			}
 		},
 	},

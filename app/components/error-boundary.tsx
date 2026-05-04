@@ -39,7 +39,7 @@ function DevErrorPage({
 	return (
 		<main className="container mx-auto space-y-2 p-4 sm:p-8">
 			<div>
-				<h1 className="font-medium text-lg">{title}</h1>
+				<h1 className="font-semibold text-xl">{title}</h1>
 				<p className="wrap-break-word max-h-96 overflow-y-auto text-base text-muted-foreground">
 					{description}
 				</p>
@@ -81,7 +81,7 @@ export function ErrorPage({
 					<EmptyMedia variant="icon">
 						<AlertCircleIcon />
 					</EmptyMedia>
-					<EmptyTitle>{title}</EmptyTitle>
+					<EmptyTitle className="font-semibold text-xl">{title}</EmptyTitle>
 					<EmptyDescription>{description}</EmptyDescription>
 				</EmptyHeader>
 				<EmptyContent>
