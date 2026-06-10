@@ -44,7 +44,7 @@ export default function IndexRoute() {
 
 								<Link
 									to={href("/settings/account")}
-									className={cn(buttonVariants({ variant: "secondary" }))}
+									className={cn(buttonVariants({ variant: "outline" }))}
 								>
 									<UserCogIcon />
 									Account Settings
@@ -54,7 +54,7 @@ export default function IndexRoute() {
 							<>
 								<Link
 									to="https://github.com/foxlau/react-router-v7-better-auth"
-									className={cn(buttonVariants({ variant: "secondary" }))}
+									className={cn(buttonVariants({ variant: "outline" }))}
 									reloadDocument
 								>
 									<GithubIcon />
@@ -63,7 +63,7 @@ export default function IndexRoute() {
 
 								<Link
 									to={href("/auth/sign-in")}
-									className={cn(buttonVariants({ variant: "secondary" }))}
+									className={cn(buttonVariants({ variant: "outline" }))}
 								>
 									Get Started <ArrowRightIcon className="size-4" />
 								</Link>
