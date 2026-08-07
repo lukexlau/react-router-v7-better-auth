@@ -1,18 +1,14 @@
+import { useForm } from "@conform-to/react/future";
 import { getZodConstraint } from "@conform-to/zod/v4";
 import { useState } from "react";
 import { data, href, Link, redirect, useNavigate } from "react-router";
 import { toast } from "sonner";
 import { AuthLayout } from "~/components/auth/auth-layout";
-import {
-	Form as CustomForm,
-	LoadingButton,
-	PasswordField,
-} from "~/components/forms";
+import { Form, LoadingButton, PasswordField } from "~/components/forms";
 import { Field, FieldError, FieldLabel } from "~/components/ui/field";
-import { useForm } from "~/lib/conform";
 import { getPageTitle } from "~/lib/utils";
 import { resetPasswordSchema } from "~/lib/validations/auth";
-import { authClient } from "~/services/auth/client";
+import { authClient } from "~/services/auth/auth.client";
 import type { Route } from "./+types/reset-password";
 
 export function meta() {
@@ -35,6 +31,7 @@ export default function ResetPasswordRoute({
 	const { form, fields } = useForm(resetPasswordSchema, {
 		constraint: getZodConstraint(resetPasswordSchema),
 		defaultValue: { token },
+		shouldValidate: "onInput",
 		onSubmit: async (e, { value }) => {
 			e.preventDefault();
 
@@ -62,7 +59,7 @@ export default function ResetPasswordRoute({
 			title="Reset your password"
 			description="Enter your new password below, minimum 8 characters, maximum 32 characters."
 		>
-			<CustomForm
+			<Form
 				className="grid gap-4"
 				method="POST"
 				context={form.context}
@@ -71,7 +68,7 @@ export default function ResetPasswordRoute({
 				<input type="hidden" name="token" value={token} />
 				<Field>
 					<FieldLabel htmlFor={fields.newPassword.id}>New Password</FieldLabel>
-					<PasswordField name="newPassword" />
+					<PasswordField name={fields.newPassword.name} />
 					{fields.newPassword.errors && (
 						<FieldError
 							errors={fields.newPassword.errors.map((error) => ({
@@ -84,7 +81,7 @@ export default function ResetPasswordRoute({
 					<FieldLabel htmlFor={fields.confirmPassword.id}>
 						Confirm New Password
 					</FieldLabel>
-					<PasswordField name="confirmPassword" />
+					<PasswordField name={fields.confirmPassword.name} />
 					{fields.confirmPassword.errors && (
 						<FieldError
 							errors={fields.confirmPassword.errors.map((error) => ({
@@ -98,7 +95,7 @@ export default function ResetPasswordRoute({
 					loadingText="Resetting password..."
 					isPending={isPending}
 				/>
-			</CustomForm>
+			</Form>
 
 			<div className="text-center text-sm">
 				<Link to="/auth/sign-in" className="text-primary hover:underline">

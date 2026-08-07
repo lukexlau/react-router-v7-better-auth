@@ -1,10 +1,4 @@
-import {
-	GaugeIcon,
-	SettingsIcon,
-	ShieldIcon,
-	UserCogIcon,
-	UsersIcon,
-} from "lucide-react";
+import { GaugeIcon, SettingsIcon, ShieldIcon, UserCogIcon } from "lucide-react";
 import type { ComponentType } from "react";
 import { href } from "react-router";
 
@@ -45,11 +39,6 @@ export const navigationGroups: NavGroupData[] = [
 				icon: GaugeIcon,
 				title: "Dashboard",
 				url: href("/admin"),
-			},
-			{
-				icon: UsersIcon,
-				title: "Users",
-				url: href("/admin/users"),
 			},
 		],
 	},

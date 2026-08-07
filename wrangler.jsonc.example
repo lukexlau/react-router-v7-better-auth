@@ -3,7 +3,7 @@
   "name": "rr7-better-auth",
   "main": "./workers/app.ts",
 
-  "compatibility_date": "2025-04-04",
+  "compatibility_date": "2026-06-16",
   "compatibility_flags": [
     "nodejs_compat",
     "nodejs_compat_populate_process_env"
@@ -44,8 +44,7 @@
 
   // Environment Variables.
   "vars": {
-    "APP_URL": "http://localhost:5173",
-    "APP_ENV": "development", // development | production
+    "VITE_BASE_URL": "http://localhost:5173",
     "SESSION_SECRET": "...",
 
     // Better Auth configuration

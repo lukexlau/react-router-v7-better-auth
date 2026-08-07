@@ -1,3 +1,4 @@
+import { useForm } from "@conform-to/react/future";
 import { getZodConstraint } from "@conform-to/zod/v4";
 import { MailIcon } from "lucide-react";
 import { useState } from "react";
@@ -12,10 +13,9 @@ import {
 	InputGroupInput,
 	InputGroupText,
 } from "~/components/ui/input-group";
-import { useForm } from "~/lib/conform";
 import { getPageTitle } from "~/lib/utils";
 import { forgetPasswordSchema } from "~/lib/validations/auth";
-import { authClient } from "~/services/auth/client";
+import { authClient } from "~/services/auth/auth.client";
 
 export function meta() {
 	return [{ title: getPageTitle("Forgot your password?") }];
@@ -26,6 +26,7 @@ export default function ForgetPasswordRoute() {
 
 	const { form, fields } = useForm(forgetPasswordSchema, {
 		constraint: getZodConstraint(forgetPasswordSchema),
+		shouldValidate: "onInput",
 		onSubmit: async (e, { value }) => {
 			e.preventDefault();
 
@@ -63,7 +64,11 @@ export default function ForgetPasswordRoute() {
 						<InputGroupInput
 							type="email"
 							placeholder="Enter your email"
-							{...fields.email.inputProps}
+							id={fields.email.id}
+							name={fields.email.name}
+							defaultValue={fields.email.defaultValue}
+							aria-invalid={!fields.email.valid || undefined}
+							aria-describedby={fields.email.ariaDescribedBy}
 						/>
 						<InputGroupAddon>
 							<InputGroupText>

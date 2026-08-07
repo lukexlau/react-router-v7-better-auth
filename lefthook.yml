@@ -1,8 +1,14 @@
+# commit-msg runs commitlint (conventional commits); {1} is the message file path
+commit-msg:
+  commands:
+    commitlint:
+      run: bunx commitlint --edit {1}
+
 pre-commit:
   parallel: true
   commands:
     check:
-      run: pnpm run check --fix --no-errors-on-unmatched
+      run: bun run check --fix --no-errors-on-unmatched
       stage_fixed: true
     typecheck:
-      run: pnpm run typecheck
+      run: bun run typecheck

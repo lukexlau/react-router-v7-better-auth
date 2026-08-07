@@ -1,9 +1,10 @@
+import { env } from "cloudflare:workers";
+import { parseSubmission, report } from "@conform-to/react/future";
 import { DeleteAccount, SignOut } from "~/components/settings/account-action";
 import { SettingRow } from "~/components/settings/setting-row";
 import { SettingsLayout } from "~/components/settings/settings-layout";
 import AvatarCropper from "~/components/user/avatar-cropper";
 import { useAuthUser } from "~/hooks/use-auth-user";
-import { parseSubmission, report } from "~/lib/conform";
 import { getAvatarUrl, getPageTitle } from "~/lib/utils";
 import { accountSchema } from "~/lib/validations/settings";
 import { requiredAuthContext } from "~/middlewares/auth";
@@ -40,7 +41,6 @@ export async function action({ request, context }: Route.ActionArgs) {
 		}
 
 		const headers = request.headers;
-		const { cloudflare } = context;
 		const { user } = context.get(requiredAuthContext);
 		const { intent } = payload.data;
 		let message = "";
@@ -89,7 +89,7 @@ export async function action({ request, context }: Route.ActionArgs) {
 				const imagePath = `${objectName}?v=${timestamp}`; // add timestamp to avoid cache
 
 				await Promise.all([
-					cloudflare.env.R2.put(objectName, image, {
+					env.R2.put(objectName, image, {
 						httpMetadata: { contentType: image.type },
 					}),
 					auth.api.updateUser({

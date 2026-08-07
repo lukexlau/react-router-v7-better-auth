@@ -51,7 +51,7 @@ function DevErrorPage({
 					</pre>
 				</div>
 			)}
-			<small className="font-light font-serif text-muted-foreground/80 italic">
+			<small className="font-light font-mono text-muted-foreground/80">
 				Application Error only visible in development environment.
 			</small>
 		</main>

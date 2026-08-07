@@ -1,39 +1,17 @@
 {
-	"include": [
-		"worker-configuration.d.ts",
-		"drizzle.config.ts",
-		"**/*.ts",
-		"**/*.tsx",
-		"**/.server/**/*.ts",
-		"**/.server/**/*.tsx",
-		"**/.client/**/*.ts",
-		"**/.client/**/*.tsx",
-		".react-router/types/**/*",
-		"./drizzle/seed/**/*.ts",
-		"./drizzle/schema/**/*.ts"
+	"files": [],
+	"references": [
+		{ "path": "./tsconfig.node.json" },
+		{ "path": "./tsconfig.cloudflare.json" }
 	],
 	"compilerOptions": {
-		"jsx": "react-jsx",
-		"lib": ["DOM", "DOM.Iterable", "ES2022"],
-		"module": "ESNext",
-		"moduleResolution": "Bundler",
-		"target": "ES2022",
-		// baseUrl omitted: deprecated in TS 6+ (TS5101); paths are rooted at this tsconfig
-		"paths": {
-			"~/*": ["./app/*"],
-			"~/drizzle/*": ["./drizzle/*"]
-		},
-		"rootDirs": [".", "./.react-router/types"],
-		"types": ["vite/client"],
-		"allowJs": true,
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"isolatedModules": true,
-		"noUncheckedIndexedAccess": true,
-		"noEmit": true,
-		"resolveJsonModule": true,
+		"checkJs": true,
+		"verbatimModuleSyntax": true,
 		"skipLibCheck": true,
 		"strict": true,
-		"verbatimModuleSyntax": true
+		"noEmit": true,
+		"paths": {
+			"~/*": ["./app/*"]
+		}
 	}
 }

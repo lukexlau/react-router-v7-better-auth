@@ -9,8 +9,8 @@ import { Button } from "~/components/ui/button";
 import { Skeleton } from "~/components/ui/skeleton";
 import { getPageTitle } from "~/lib/utils";
 import { requiredAuthContext } from "~/middlewares/auth";
+import { authClient } from "~/services/auth/auth.client";
 import { auth } from "~/services/auth/auth.server";
-import { authClient } from "~/services/auth/client";
 import type { Route } from "./+types/sessions";
 
 export function meta() {

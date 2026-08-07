@@ -43,7 +43,7 @@ export const Breadcrumbs: React.FC = () => {
 		const allItems: ProcessedBreadcrumbItem[] = [];
 
 		for (const match of relevantMatches) {
-			const itemInfo = match.handle.breadcrumb(match.data);
+			const itemInfo = match.handle.breadcrumb(match.loaderData);
 			const itemsArray = Array.isArray(itemInfo) ? itemInfo : [itemInfo];
 
 			for (const item of itemsArray) {

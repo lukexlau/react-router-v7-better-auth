@@ -32,16 +32,14 @@ function ProgressBar({ showSpinner = false }: ProgressBarProps) {
 	}, [delayedPending]);
 
 	return (
-		// biome-ignore lint/a11y/useAriaPropsSupportedByRole: false positive
 		<div
 			aria-hidden={delayedPending ? undefined : true}
-			aria-valuetext={delayedPending ? "Loading" : undefined}
-			className="fixed inset-x-0 top-0 left-0 z-99999 h-[2.5px] animate-pulse"
+			className="pointer-events-none fixed inset-x-0 top-0 left-0 z-1000 h-[2.5px]"
 		>
 			<div
 				ref={ref}
 				className={cn(
-					"h-full w-0 bg-primary duration-500 ease-in-out",
+					"relative h-full w-0 bg-blue-500 duration-500 ease-in-out",
 					transition.state === "idle" &&
 						(animationComplete
 							? "transition-none"
@@ -49,10 +47,20 @@ function ProgressBar({ showSpinner = false }: ProgressBarProps) {
 					delayedPending && transition.state === "submitting" && "w-5/12",
 					delayedPending && transition.state === "loading" && "w-8/12",
 				)}
-			/>
+			>
+				{delayedPending && (
+					<div
+						className="absolute right-0 block h-full w-25 opacity-100"
+						style={{
+							boxShadow: "0 0 10px #3b82f6, 0 0 5px #3b82f6",
+							transform: "rotate(3deg) translate(0px, -4px)",
+						}}
+					/>
+				)}
+			</div>
 			{delayedPending && showSpinner && (
-				<div className="absolute top-2 right-2 flex items-center justify-center">
-					<Spinner className="size-4 text-primary" />
+				<div className="fixed top-3.75 right-3.75 z-1000">
+					<Spinner className="size-4.5 text-blue-500" />
 				</div>
 			)}
 		</div>

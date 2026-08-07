@@ -1,3 +1,9 @@
+import {
+	type FormContext,
+	FormProvider,
+	useField,
+	useFormMetadata,
+} from "@conform-to/react/future";
 import type { VariantProps } from "class-variance-authority";
 import { CircleAlertIcon, EyeIcon, EyeOffIcon } from "lucide-react";
 import { type ComponentProps, useState } from "react";
@@ -10,12 +16,6 @@ import {
 	InputGroupButton,
 	InputGroupInput,
 } from "~/components/ui/input-group";
-import {
-	type FormContext,
-	FormProvider,
-	useField,
-	useFormMetadata,
-} from "~/lib/conform";
 import { cn } from "~/lib/utils";
 import { Button, type buttonVariants } from "./ui/button";
 import { Spinner } from "./ui/spinner";
@@ -123,8 +123,11 @@ export function PasswordField({
 			<InputGroupInput
 				type={isVisible ? "text" : "password"}
 				placeholder={placeholder}
+				id={field.id}
+				name={field.name}
 				aria-label={isVisible ? "Hide password" : "Show password"}
-				{...field.inputProps}
+				aria-invalid={!field.valid || undefined}
+				aria-describedby={field.ariaDescribedBy}
 			/>
 			<InputGroupAddon align="inline-end">
 				<InputGroupButton

@@ -22,36 +22,20 @@ import {
 import { combineHeaders, getPageTitle } from "./lib/utils";
 import {
 	authMiddleware,
-	logger,
 	optionalAuthContext,
-	trimTrailingSlash,
+	requestLogger,
 } from "./middlewares";
-import { getClientEnv } from "./services/env.server";
 import { getTheme } from "./services/theme.server";
 import { getToast } from "./services/toast.server";
 import stylesheet from "./styles/app.css?url";
 
-export const middleware = [trimTrailingSlash, authMiddleware, logger];
-
-export const links: Route.LinksFunction = () => [
-	{ rel: "preconnect", href: "https://fonts.googleapis.com" },
-	{
-		rel: "preconnect",
-		href: "https://fonts.gstatic.com",
-		crossOrigin: "anonymous",
-	},
-	{
-		rel: "stylesheet",
-		href: "https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&display=swap",
-	},
-];
+export const middleware = [authMiddleware, requestLogger];
 
 export const meta: Route.MetaFunction = ({ error }) => [
 	{ title: getPageTitle(error ? "Oops! " : "") },
 ];
 
 export async function loader({ request, context }: Route.LoaderArgs) {
-	const clientEnv = getClientEnv();
 	const authSession = context.get(optionalAuthContext);
 	const { toast, headers: toastHeaders } = await getToast(request);
 
@@ -60,7 +44,6 @@ export async function loader({ request, context }: Route.LoaderArgs) {
 			user: authSession?.user ?? null,
 			toast,
 			requestInfo: {
-				clientEnv,
 				hints: getHints(request),
 				userPrefs: { theme: getTheme(request) },
 			},
@@ -100,22 +83,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App({ loaderData }: Route.ComponentProps) {
-	const nonce = useNonce();
 	useToast(loaderData.toast);
 
 	// Form defaults + custom field props: `app/conform.ts` (`configureForms`)
-	return (
-		<>
-			<Outlet />
-			<script
-				nonce={nonce}
-				// biome-ignore lint/security/noDangerouslySetInnerHtml: false positive
-				dangerouslySetInnerHTML={{
-					__html: `window.ENV = ${JSON.stringify(loaderData.requestInfo.clientEnv)}`,
-				}}
-			/>
-		</>
-	);
+	return <Outlet />;
 }
 
 export function ErrorBoundary() {

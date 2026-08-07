@@ -1,3 +1,4 @@
+import { useForm } from "@conform-to/react/future";
 import { getZodConstraint } from "@conform-to/zod/v4";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
@@ -6,10 +7,9 @@ import { AuthLayout } from "~/components/auth/auth-layout";
 import { Form, LoadingButton, PasswordField } from "~/components/forms";
 import { Field, FieldError, FieldLabel } from "~/components/ui/field";
 import { Input } from "~/components/ui/input";
-import { useForm } from "~/lib/conform";
 import { getPageTitle } from "~/lib/utils";
 import { signUpSchema } from "~/lib/validations/auth";
-import { authClient } from "~/services/auth/client";
+import { authClient } from "~/services/auth/auth.client";
 
 export function meta() {
 	return [{ title: getPageTitle("Sign Up") }];
@@ -21,6 +21,7 @@ export default function SignUpRoute() {
 
 	const { form, fields } = useForm(signUpSchema, {
 		constraint: getZodConstraint(signUpSchema),
+		shouldValidate: "onInput",
 		onSubmit: async (e, { value }) => {
 			e.preventDefault();
 
@@ -60,12 +61,16 @@ export default function SignUpRoute() {
 				<Field>
 					<FieldLabel htmlFor={fields.name.id}>Name</FieldLabel>
 					<Input
-						{...fields.name.inputProps}
 						placeholder="John Doe"
 						autoComplete="name"
 						enterKeyHint="next"
 						type="text"
 						required
+						id={fields.name.id}
+						name={fields.name.name}
+						defaultValue={fields.name.defaultValue}
+						aria-invalid={!fields.name.valid || undefined}
+						aria-describedby={fields.name.ariaDescribedBy}
 					/>
 					<FieldError
 						errors={fields.name.errors?.map((error) => ({
@@ -76,11 +81,15 @@ export default function SignUpRoute() {
 				<Field>
 					<FieldLabel htmlFor={fields.email.id}>Email</FieldLabel>
 					<Input
-						{...fields.email.inputProps}
 						placeholder="johndoe@example.com"
 						autoComplete="email"
 						enterKeyHint="next"
 						type="email"
+						id={fields.email.id}
+						name={fields.email.name}
+						defaultValue={fields.email.defaultValue}
+						aria-invalid={!fields.email.valid || undefined}
+						aria-describedby={fields.email.ariaDescribedBy}
 					/>
 					<FieldError
 						errors={fields.email.errors?.map((error) => ({
@@ -91,7 +100,7 @@ export default function SignUpRoute() {
 				<Field>
 					<FieldLabel htmlFor={fields.password.id}>Password</FieldLabel>
 					<PasswordField
-						name="password"
+						name={fields.password.name}
 						placeholder="Enter a unique password"
 					/>
 					<FieldError

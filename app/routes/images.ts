@@ -1,8 +1,9 @@
+import { env } from "cloudflare:workers";
 import type { Route } from "./+types/images";
 
-export const loader = async ({ params, context }: Route.LoaderArgs) => {
+export const loader = async ({ params }: Route.LoaderArgs) => {
 	const key = params["*"];
-	const object = await context.cloudflare.env.R2.get(key);
+	const object = await env.R2.get(key);
 	if (!object) {
 		return new Response(null, { status: 404 });
 	}

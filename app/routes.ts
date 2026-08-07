@@ -34,10 +34,7 @@ export default [
 
 	// Admin routes
 	...prefix("admin", [
-		layout("routes/admin/layout.tsx", [
-			index("routes/admin/dashboard.tsx"),
-			route("users", "routes/admin/users/index.tsx"),
-		]),
+		layout("routes/admin/layout.tsx", [index("routes/admin/dashboard.tsx")]),
 	]),
 
 	// Image routes

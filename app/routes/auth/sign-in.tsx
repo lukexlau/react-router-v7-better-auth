@@ -1,3 +1,4 @@
+import { useForm } from "@conform-to/react/future";
 import { getZodConstraint } from "@conform-to/zod/v4";
 import { useEffect, useState } from "react";
 import { href, Link, useSearchParams } from "react-router";
@@ -9,10 +10,9 @@ import { GithubIcon, GoogleIcon } from "~/components/icons";
 import { Button } from "~/components/ui/button";
 import { Field, FieldError, FieldLabel } from "~/components/ui/field";
 import { Input } from "~/components/ui/input";
-import { useForm } from "~/lib/conform";
 import { getPageTitle } from "~/lib/utils";
 import { signInSchema } from "~/lib/validations/auth";
-import { authClient } from "~/services/auth/client";
+import { authClient } from "~/services/auth/auth.client";
 
 export function meta() {
 	return [{ title: getPageTitle("Sign In") }];
@@ -28,6 +28,7 @@ export default function SignInRoute() {
 
 	const { form, fields } = useForm(signInSchema, {
 		constraint: getZodConstraint(signInSchema),
+		shouldValidate: "onInput",
 		onSubmit: async (e, { value }) => {
 			e.preventDefault();
 			if (isSignInPending) return;
@@ -81,10 +82,14 @@ export default function SignInRoute() {
 				<Field>
 					<FieldLabel htmlFor={fields.email.id}>Email</FieldLabel>
 					<Input
-						{...fields.email.inputProps}
 						placeholder="your@email.com"
 						autoComplete="on"
 						type="email"
+						id={fields.email.id}
+						name={fields.email.name}
+						defaultValue={fields.email.defaultValue}
+						aria-invalid={!fields.email.valid || undefined}
+						aria-describedby={fields.email.ariaDescribedBy}
 					/>
 					<FieldError
 						errors={fields.email.errors?.map((error) => ({
@@ -102,7 +107,7 @@ export default function SignInRoute() {
 							Forgot your password?
 						</Link>
 					</div>
-					<PasswordField name="password" placeholder="••••••••••" />
+					<PasswordField name={fields.password.name} placeholder="••••••••••" />
 					<FieldError
 						errors={fields.password.errors?.map((error) => ({
 							message: error,

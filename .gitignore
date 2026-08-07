@@ -14,3 +14,7 @@
 .dev.vars*
 wrangler.jsonc
 worker-configuration.d.ts
+worker-startup.cpuprofile
+
+!.dev.vars.example
+!.env.example

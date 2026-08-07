@@ -4,8 +4,8 @@ import { useFetcher } from "react-router";
 
 import { Button } from "~/components/ui/button";
 import { Checkbox } from "~/components/ui/checkbox";
-import type { Todo } from "~/drizzle/schema";
 import { cn } from "~/lib/utils";
+import type { Todo } from "~/services/db/schema";
 
 export function TodoItem({ todo }: { todo: Todo }) {
 	const fetcher = useFetcher();

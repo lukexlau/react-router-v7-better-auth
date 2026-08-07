@@ -1,15 +1,15 @@
-import { getZodConstraint } from "@conform-to/zod/v4/future";
+import { parseSubmission, report, useForm } from "@conform-to/react/future";
+import { getConstraints } from "@conform-to/zod/v4/future";
 import { and, eq, sql } from "drizzle-orm";
 import { data, useNavigation } from "react-router";
 import { Form, LoadingButton } from "~/components/forms";
 import { TodoItem } from "~/components/todos/todo-item";
 import { Input } from "~/components/ui/input";
-import { todos } from "~/drizzle/schema";
-import { parseSubmission, report, useForm } from "~/lib/conform";
 import { getPageTitle } from "~/lib/utils";
 import { todoSchema } from "~/lib/validations/todo";
 import { requiredAuthContext } from "~/middlewares/auth";
-import { db } from "~/services/db.server";
+import { db } from "~/services/db";
+import { todos } from "~/services/db/schema";
 import type { Route } from "./+types/todos";
 
 export function meta() {
@@ -80,7 +80,8 @@ export default function TodosRoute({
 }: Route.ComponentProps) {
 	const { form, fields } = useForm(todoSchema, {
 		lastResult: actionData,
-		constraint: getZodConstraint(todoSchema),
+		constraint: getConstraints(todoSchema),
+		shouldValidate: "onInput",
 		defaultValue: {
 			intent: "create",
 		},
@@ -99,10 +100,19 @@ export default function TodosRoute({
 				<div className="flex gap-2">
 					<Input
 						placeholder="Add a todo"
-						{...fields.title.inputProps}
+						id={fields.title.id}
+						name={fields.title.name}
+						defaultValue={fields.title.defaultValue}
+						aria-invalid={!fields.title.valid || undefined}
+						aria-describedby={fields.title.ariaDescribedBy}
 						type="text"
 					/>
-					<input {...fields.intent.inputProps} type="hidden" />
+					<input
+						id={fields.intent.id}
+						name={fields.intent.name}
+						defaultValue={fields.intent.defaultValue}
+						type="hidden"
+					/>
 					<LoadingButton
 						buttonText="Add"
 						loadingText="Adding..."

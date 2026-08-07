@@ -8,18 +8,19 @@ import {
 	username as usernamePlugin,
 } from "better-auth/plugins";
 import { appName, cookiePrefix } from "~/lib/config";
-import { db } from "../db.server";
-import { isDevelopment } from "../env.server";
+import { db } from "../db";
 import { deleteUserImageFromR2 } from "../r2.server";
 import { ac, admin, editor } from "./permissions";
 
-const baseURL = isDevelopment ? "http://localhost:5173" : env.APP_URL;
-
 const options = {
 	appName,
-	baseURL,
+	baseURL: env.VITE_BASE_URL,
 	secret: env.BETTER_AUTH_SECRET,
-	trustedOrigins: [baseURL, "http://localhost:4173"],
+	trustedOrigins: [env.VITE_BASE_URL, "http://localhost:4173"],
+
+	telemetry: {
+		enabled: false,
+	},
 
 	database: drizzleAdapter(db, {
 		provider: "sqlite",
@@ -37,7 +38,7 @@ const options = {
 		enabled: true,
 		requireEmailVerification: true,
 		sendResetPassword: async ({ user, url, token }) => {
-			if (env.APP_ENV === "development") {
+			if (import.meta.env.DEV) {
 				console.log("Send email to reset password");
 				console.log("User", user);
 				console.log("URL", url);
@@ -52,13 +53,17 @@ const options = {
 		sendOnSignUp: true,
 		autoSignInAfterVerification: true,
 		sendVerificationEmail: async ({ user, url, token }) => {
-			if (env.APP_ENV === "development") {
+			if (import.meta.env.DEV) {
 				console.log("Send email to verify email address");
 				console.log(user, url, token);
 			} else {
 				// Send email to user ... (Use Resend or Cloudflare Send Email)
 			}
 		},
+	},
+
+	experimental: {
+		joins: true,
 	},
 
 	socialProviders: {
@@ -126,6 +131,13 @@ const options = {
 			cookieName: `${cookiePrefix}.last_used_login_method`, // Default: "better-auth.last_used_login_method"
 		}),
 	],
+
+	session: {
+		cookieCache: {
+			enabled: true,
+			maxAge: 5 * 60, // 1 minutes
+		},
+	},
 } satisfies BetterAuthOptions;
 
 export const auth = betterAuth({

@@ -1,3 +1,5 @@
+"use client";
+
 import { cva, type VariantProps } from "class-variance-authority";
 import { useMemo } from "react";
 import { Label } from "~/components/ui/label";
@@ -191,7 +193,6 @@ function FieldError({
 			...new Map(errors.map((error) => [error?.message, error])).values(),
 		];
 
-		// biome-ignore lint/suspicious/noDoubleEquals: Match prior behavior; length is always a number when defined.
 		if (uniqueErrors?.length == 1) {
 			return uniqueErrors[0]?.message;
 		}

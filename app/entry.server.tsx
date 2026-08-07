@@ -1,11 +1,7 @@
-import crypto from "node:crypto";
 import { isbot } from "isbot";
 import { renderToReadableStream } from "react-dom/server";
 import type { EntryContext, HandleErrorFunction } from "react-router";
 import { isRouteErrorResponse, ServerRouter } from "react-router";
-import { NonceProvider } from "./hooks/use-nonce";
-import { buildContentSecurityPolicy } from "./lib/csp";
-import { isDevelopment } from "./services/env.server";
 
 export default async function handleRequest(
 	request: Request,
@@ -15,24 +11,9 @@ export default async function handleRequest(
 ) {
 	let shellRendered = false;
 	const userAgent = request.headers.get("user-agent");
-	const nonce = crypto.randomBytes(16).toString("hex");
-	const contentSecurityPolicy = buildContentSecurityPolicy({
-		baseUri: ["'self'"],
-		objectSrc: ["'none'"],
-		connectSrc: ["'self'", isDevelopment ? "ws:" : ""],
-		scriptSrc: ["'self'", `'nonce-${nonce}'`],
-		workerSrc: ["'self'", isDevelopment ? "blob:" : ""],
-		scriptSrcAttr: [`'nonce-${nonce}'`],
-		imgSrc: ["'self'", "data:", "blob:", "https:"],
-		fontSrc: ["'self'", "https://fonts.gstatic.com"],
-		frameSrc: ["'self'"],
-		formAction: ["'self'"],
-	});
 
 	const body = await renderToReadableStream(
-		<NonceProvider value={nonce}>
-			<ServerRouter context={routerContext} url={request.url} nonce={nonce} />
-		</NonceProvider>,
+		<ServerRouter context={routerContext} url={request.url} />,
 		{
 			onError(error: unknown) {
 				responseStatusCode = 500;
@@ -43,8 +24,6 @@ export default async function handleRequest(
 					console.error(error);
 				}
 			},
-			signal: request.signal,
-			nonce,
 		},
 	);
 	shellRendered = true;
@@ -56,8 +35,6 @@ export default async function handleRequest(
 	}
 
 	responseHeaders.set("Content-Type", "text/html");
-	responseHeaders.set("Content-Security-Policy", contentSecurityPolicy);
-
 	return new Response(body, {
 		headers: responseHeaders,
 		status: responseStatusCode,

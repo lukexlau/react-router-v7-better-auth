@@ -2,7 +2,7 @@ import type { FC, SVGProps } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
-import { authClient } from "~/services/auth/client";
+import { authClient } from "~/services/auth/auth.client";
 import { DateTimeDisplay } from "../datetime-display";
 import { LoadingButton } from "../forms";
 

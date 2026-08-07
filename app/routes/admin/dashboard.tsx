@@ -9,11 +9,10 @@ import {
 	CardTitle,
 } from "~/components/ui/card";
 import { Skeleton } from "~/components/ui/skeleton";
-import { users } from "~/drizzle/schema";
 import { useAuthUser } from "~/hooks/use-auth-user";
 import { getPageTitle } from "~/lib/utils";
-import { db } from "~/services/db.server";
-import { isProduction } from "~/services/env.server";
+import { db } from "~/services/db";
+import { users } from "~/services/db/schema";
 import type { Route } from "./+types/dashboard";
 
 export function meta() {
@@ -47,7 +46,7 @@ export async function loader(_: Route.LoaderArgs) {
 		totalContentPromise,
 		categoriesCountPromise,
 		tagsCountPromise,
-		nodeEnv: isProduction ? "production" : "development",
+		nodeEnv: import.meta.env.PROD ? "production" : "development",
 		metaEnv: import.meta.env,
 	});
 }

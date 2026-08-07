@@ -57,7 +57,6 @@ function BreadcrumbLink({
 
 function BreadcrumbPage({ className, ...props }: React.ComponentProps<"span">) {
 	return (
-		// biome-ignore lint/a11y/useFocusableInteractive: Current page is presentational; aria-current marks it without keyboard focus (shadcn pattern).
 		<span
 			data-slot="breadcrumb-page"
 			role="link"

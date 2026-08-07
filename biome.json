@@ -13,7 +13,8 @@
 			"!**/drizzle/meta/**/*",
 			"!**/drizzle/migrations/**/*",
 			"!**/public/**/*",
-			"!**/docs/**/*"
+			"!**/docs/**/*",
+			"!**/app/components/ui/**/*"
 		]
 	},
 	"formatter": {
@@ -23,7 +24,7 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true,
+			"preset": "recommended",
 			"suspicious": {
 				"noArrayIndexKey": "off"
 			},
