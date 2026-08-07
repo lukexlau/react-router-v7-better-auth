@@ -1,7 +1,3 @@
 {
-	"recommendations": [
-		"biomejs.biome",
-		"tailwindcss.tailwindcss",
-		"csstools.postcss"
-	]
+	"recommendations": ["biomejs.biome", "tailwindcss.tailwindcss"]
 }
