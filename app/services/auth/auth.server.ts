@@ -106,8 +106,8 @@ const options = {
 	rateLimit: {
 		enabled: true,
 		storage: "secondary-storage",
-		window: 60, // time window in seconds
-		max: 10, // max requests in the window
+		window: 60,
+		max: 10,
 	},
 
 	plugins: [
@@ -128,14 +128,14 @@ const options = {
 			},
 		}),
 		lastLoginMethodPlugin({
-			cookieName: `${cookiePrefix}.last_used_login_method`, // Default: "better-auth.last_used_login_method"
+			cookieName: `${cookiePrefix}.last_used_login_method`,
 		}),
 	],
 
 	session: {
 		cookieCache: {
 			enabled: true,
-			maxAge: 5 * 60, // 1 minutes
+			maxAge: 5 * 60,
 		},
 	},
 } satisfies BetterAuthOptions;
